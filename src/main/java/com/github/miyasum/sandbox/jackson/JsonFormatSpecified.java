@@ -11,9 +11,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
-public class JavaTime {
+public class JsonFormatSpecified {
 
 	static class Data {
+		@JsonFormat(shape = Shape.STRING)
+		public int no;
+
 		public String name;
 
 		@JsonFormat(shape = Shape.STRING, pattern = "yyyyMMddHHmm")
@@ -21,7 +24,7 @@ public class JavaTime {
 
 		@Override
 		public String toString() {
-			return String.format("Data [name=%s, date=%s]", name, date);
+			return String.format("Data [no=%s, name=%s, date=%s]", no, name, date);
 		}
 	}
 
@@ -29,13 +32,14 @@ public class JavaTime {
 		ObjectMapper mapper = new ObjectMapper().registerModule(new JavaTimeModule())
 				.setPropertyNamingStrategy(PropertyNamingStrategy.CAMEL_CASE_TO_LOWER_CASE_WITH_UNDERSCORES);
 
-		JavaTime.Data data = new JavaTime.Data();
+		JsonFormatSpecified.Data data = new JsonFormatSpecified.Data();
+		data.no = 1;
 		data.name = "aaa";
 		data.date = LocalDateTime.now();
 		System.out.println(mapper.writeValueAsString(data));
 
-		String json = "{\"name\": \"aaa\", \"date\": \"201201010000\"}";
-		JavaTime.Data obj = mapper.readValue(json, JavaTime.Data.class);
+		String json = "{\"no\": \"1\",\"name\": \"aaa\", \"date\": \"201201010000\"}";
+		JsonFormatSpecified.Data obj = mapper.readValue(json, JsonFormatSpecified.Data.class);
 		System.out.println(obj);
 	}
 }
