@@ -46,8 +46,8 @@ public class KuromojiSample {
 			@Override
 			public String apply(Token input) {
 				return Joiner.on("").join(
-					Lists.transform(Chars.asList(input.getReading().toCharArray()),
-						KATAKANA2HIRAGANA));
+						Lists.transform(Chars.asList(input.getReading().toCharArray()),
+								KATAKANA2HIRAGANA));
 			}
 		}));
 	}
