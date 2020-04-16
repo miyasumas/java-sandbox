@@ -12,46 +12,49 @@ import org.kohsuke.args4j.spi.SubCommands;
  */
 public class SubCommandSample {
 
-	/**
-	 * 引数によって実行するオブジェクトを切り替える
-	 */
-	@Argument(handler = SubCommandHandler.class)
-	@SubCommands({
-		@SubCommand(name = "hello", impl = HelloCommand.class),
-		@SubCommand(name = "goodbye", impl = GoodbyeCommand.class)
-	})
-	private Command command;
+  /**
+   * 引数によって実行するオブジェクトを切り替える
+   */
+  @Argument(handler = SubCommandHandler.class)
+  @SubCommands({
+    @SubCommand(name = "hello", impl = HelloCommand.class),
+    @SubCommand(name = "goodbye", impl = GoodbyeCommand.class)
+  })
+  private Command command;
 
-	public static void main(String[] args) throws CmdLineException {
-		SubCommandSample subcommand = new SubCommandSample();
-		new CmdLineParser(subcommand).parseArgument(args);
-		subcommand.command.execute();
-	}
+  public static void main(String[] args) throws CmdLineException {
+    SubCommandSample subcommand = new SubCommandSample();
+    new CmdLineParser(subcommand).parseArgument(args);
+    subcommand.command.execute();
+  }
 
-	/**
-	 * コマンド
-	 */
-	public static interface Command {
-		public void execute();
-	}
+  /**
+   * コマンド
+   */
+  public static interface Command {
 
-	/**
-	 * こんにちは
-	 */
-	public static class HelloCommand implements Command {
-		@Override
-		public void execute() {
-			System.out.println("Hello");
-		}
-	}
+    public void execute();
+  }
 
-	/**
-	 * さようなら
-	 */
-	public static class GoodbyeCommand implements Command {
-		@Override
-		public void execute() {
-			System.out.println("Goodbye");
-		}
-	}
+  /**
+   * こんにちは
+   */
+  public static class HelloCommand implements Command {
+
+    @Override
+    public void execute() {
+      System.out.println("Hello");
+    }
+  }
+
+  /**
+   * さようなら
+   */
+  public static class GoodbyeCommand implements Command {
+
+    @Override
+    public void execute() {
+      System.out.println("Goodbye");
+    }
+  }
 }

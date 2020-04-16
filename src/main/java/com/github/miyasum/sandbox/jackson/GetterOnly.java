@@ -1,53 +1,55 @@
 package com.github.miyasum.sandbox.jackson;
 
-import java.io.IOException;
-
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.IOException;
 
 public class GetterOnly {
 
-	static class Getter {
-		private String name;
+  public static void main(String[] args)
+    throws JsonParseException, JsonMappingException, IOException {
+    ObjectMapper mapper = new ObjectMapper();
 
-		public String getName() {
-			return name;
-		}
+    Setter data = new Setter();
+    data.setName("aaa");
+    System.out.println(mapper.writeValueAsString(data));
 
-		@Override
-		public String toString() {
-			return String.format("Getter [name=%s]", name);
-		}
-	}
+    String json = "{\"name\": \"aaa\"}";
+    Getter obj = mapper.readValue(json, Getter.class);
+    System.out.println(obj);
+  }
 
-	static class Setter {
-		private String name;
+  static class Getter {
 
-		public void setName(String name) {
-			this.name = name;
-		}
+    private String name;
 
-		public String getName() {
-			return name;
-		}
+    public String getName() {
+      return name;
+    }
 
-		@Override
-		public String toString() {
-			return String.format("Setter [name=%s]", name);
-		}
-	}
+    @Override
+    public String toString() {
+      return String.format("Getter [name=%s]", name);
+    }
+  }
 
-	public static void main(String[] args) throws JsonParseException, JsonMappingException, IOException {
-		ObjectMapper mapper = new ObjectMapper();
+  static class Setter {
 
-		Setter data = new Setter();
-		data.setName("aaa");
-		System.out.println(mapper.writeValueAsString(data));
+    private String name;
 
-		String json = "{\"name\": \"aaa\"}";
-		Getter obj = mapper.readValue(json, Getter.class);
-		System.out.println(obj);
-	}
+    public String getName() {
+      return name;
+    }
+
+    public void setName(String name) {
+      this.name = name;
+    }
+
+    @Override
+    public String toString() {
+      return String.format("Setter [name=%s]", name);
+    }
+  }
 
 }

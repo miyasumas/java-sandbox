@@ -1,22 +1,22 @@
 plugins {
-    id 'java'
+  id 'java'
 }
 
 repositories {
-    mavenCentral()
-    maven {
-        url = uri('http://www.atilika.org/nexus/content/repositories/atilika')
-    }
+  mavenCentral()
+  maven {
+    url = uri('http://www.atilika.org/nexus/content/repositories/atilika')
+  }
 }
 
 dependencies {
-    implementation 'com.google.guava:guava:19.0'
-    implementation 'org.atilika.kuromoji:kuromoji:0.7.7'
-    implementation 'args4j:args4j:2.32'
-    implementation 'com.fasterxml.jackson.core:jackson-databind:2.6.4'
-    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.6.4'
-    implementation 'org.jsoup:jsoup:1.13.1'
-    testImplementation 'junit:junit:4.11'
+  implementation 'com.google.guava:guava:19.0'
+  implementation 'org.atilika.kuromoji:kuromoji:0.7.7'
+  implementation 'args4j:args4j:2.32'
+  implementation 'com.fasterxml.jackson.core:jackson-databind:2.6.4'
+  implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.6.4'
+  implementation 'org.jsoup:jsoup:1.13.1'
+  testImplementation 'junit:junit:4.11'
 }
 
 group = 'com.github.miyasum'
@@ -25,5 +25,5 @@ sourceCompatibility = '11'
 targetCompatibility = '11'
 
 tasks.withType(JavaCompile) {
-    options.encoding = 'UTF-8'
+  options.encoding = 'UTF-8'
 }

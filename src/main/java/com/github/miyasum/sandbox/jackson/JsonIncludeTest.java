@@ -1,14 +1,12 @@
 package com.github.miyasum.sandbox.jackson;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.PropertyNamingStrategy;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 /**
  * @author MIYASAKA Yasumasa
@@ -16,36 +14,42 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
  */
 public class JsonIncludeTest {
 
-	static class Data {
-		public int no;
+  public static void main(String[] args) throws JsonProcessingException {
+    {
+      ObjectMapper mapper = new ObjectMapper()
+        .setSerializationInclusion(JsonInclude.Include.NON_ABSENT);
+      System.out.println(mapper.writeValueAsString(new Root()));
+    }
+    {
+      ObjectMapper mapper = new ObjectMapper()
+        .setSerializationInclusion(JsonInclude.Include.NON_DEFAULT);
+      System.out.println(mapper.writeValueAsString(new Root()));
+    }
+    {
+      ObjectMapper mapper = new ObjectMapper()
+        .setSerializationInclusion(JsonInclude.Include.NON_EMPTY);
+      System.out.println(mapper.writeValueAsString(new Root()));
+    }
+    {
+      ObjectMapper mapper = new ObjectMapper()
+        .setSerializationInclusion(JsonInclude.Include.NON_NULL);
+      System.out.println(mapper.writeValueAsString(new Root()));
+    }
+  }
 
-		public String name = "";
+  static class Data {
 
-		public Map<String, String> map = new HashMap<>();
+    public int no;
 
-		public List<String> list = new ArrayList<>();
-	}
+    public String name = "";
 
-	static class Root {
-		public Data data = new Data();
-	}
+    public Map<String, String> map = new HashMap<>();
 
-	public static void main(String[] args) throws JsonProcessingException {
-		{
-			ObjectMapper mapper = new ObjectMapper().setSerializationInclusion(JsonInclude.Include.NON_ABSENT);
-			System.out.println(mapper.writeValueAsString(new Root()));
-		}
-		{
-			ObjectMapper mapper = new ObjectMapper().setSerializationInclusion(JsonInclude.Include.NON_DEFAULT);
-			System.out.println(mapper.writeValueAsString(new Root()));
-		}
-		{
-			ObjectMapper mapper = new ObjectMapper().setSerializationInclusion(JsonInclude.Include.NON_EMPTY);
-			System.out.println(mapper.writeValueAsString(new Root()));
-		}
-		{
-			ObjectMapper mapper = new ObjectMapper().setSerializationInclusion(JsonInclude.Include.NON_NULL);
-			System.out.println(mapper.writeValueAsString(new Root()));
-		}
-	}
+    public List<String> list = new ArrayList<>();
+  }
+
+  static class Root {
+
+    public Data data = new Data();
+  }
 }
